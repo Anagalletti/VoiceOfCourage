@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Mulher - Aplicativo de Proteção</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .form-container {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .form-container:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        
+        .password-toggle {
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .strength-weak {
+            background-color: #ef4444;
+        }
+        
+        .strength-medium {
+            background-color: #f59e0b;
+        }
+        
+        .strength-strong {
+            background-color: #10b981;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4">
+    <div class="form-container bg-white rounded-xl p-8 w-full max-w-md">
+        <div class="flex justify-center mb-6">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f7d1ea07-7d0d-4051-ba2f-979a6f3820d7.png" alt="Logo do app SOS Mulher com ícone de proteção" class="w-24 h-24 rounded-full object-cover">
+        </div>
+        
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-2">SOS Mulher</h1>
+        <p class="text-gray-600 text-center mb-6">Proteção e assistência em situações de risco</p>
+        
+        <div class="space-y-6">
+            <!-- Emergency Button -->
+            <button id="emergencyBtn" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 px-4 rounded-lg font-bold text-lg transition duration-300 shadow-lg hover:shadow-xl focus:outline-none flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                SOS EMERGÊNCIA
+            </button>
+
+            <!-- Psychologist Chat -->
+            <div class="bg-purple-50 rounded-lg p-4">
+                <h3 class="font-medium text-purple-800 mb-2">Apoio Psicológico</h3>
+                <p class="text-sm text-purple-600 mb-3">Converse agora com um psicólogo especializado</p>
+                <button id="psychologistBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition">
+                    Iniciar Conversa
+                </button>
+            </div>
+
+            <!-- Video Call -->
+            <div class="bg-blue-50 rounded-lg p-4">
+                <h3 class="font-medium text-blue-800 mb-2">Chamada de Vídeo</h3>
+                <p class="text-sm text-blue-600 mb-3">Conectar com voluntária ou especialista</p>
+                <button id="videoCallBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
+                    Iniciar Vídeo Chamada
+                </button>
+            </div>
+
+            <!-- Location Sharing -->
+            <div class="bg-green-50 rounded-lg p-4">
+                <h3 class="font-medium text-green-800 mb-2">Compartilhamento de Localização</h3>
+                <p class="text-sm text-green-600 mb-3">Sua localização atual:</p>
+                <div id="locationDisplay" class="bg-white p-3 rounded border border-gray-200 mb-3 text-sm">
+                    Carregando localização...
+                </div>
+                <button id="shareLocationBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition">
+                    Compartilhar Localização
+                </button>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center text-xs text-gray-500">
+            <p>Em caso de emergência, ligue para 180 (Central de Atendimento à Mulher)</p>
+            <p class="mt-1">Ou para o 190 (Polícia Militar)</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Change icon
+                const icon = togglePassword.querySelector('svg');
+                if (type === 'password') {
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
+                } else {
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />';
+                }
+            });
+            
+            // Password strength indicator
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                const weakBar = document.getElementById('strengthWeak');
+                const mediumBar = document.getElementById('strengthMedium');
+                const strongBar = document.getElementById('strengthStrong');
+                const hintText = document.getElementById('passwordHint');
+                
+                // Reset all
+                weakBar.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+                mediumBar.classList.remove('strength-medium', 'strength-strong', 'bg-gray-200');
+                strongBar.classList.remove('strength-strong', 'bg-gray-200');
+                
+                // Calculate strength
+                let strength = 0;
+                if (password.length > 0) strength++;
+                if (password.length >= 8) strength++;
+                if (password.match(/[A-Z]/)) strength++;
+                if (password.match(/[0-9]/)) strength++;
+                if (password.match(/[^A-Za-z0-9]/)) strength++;
+                
+                // Update UI based on strength
+                if (password.length === 0) {
+                    weakBar.classList.add('bg-gray-200');
+                    mediumBar.classList.add('bg-gray-200');
+                    strongBar.classList.add('bg-gray-200');
+                    hintText.textContent = 'Use pelo menos 8 caracteres, incluindo letras e números';
+                } else if (password.length < 8) {
+                    weakBar.classList.add('strength-weak');
+                    hintText.textContent = 'Senha muito curta';
+                } else if (strength <= 3) {
+                    weakBar.classList.add('strength-weak');
+                    hintText.textContent = 'Senha fraca - adicione maiúsculas, números ou caracteres especiais';
+                } else if (strength <= 4) {
+                    weakBar.classList.add('strength-medium');
+                    mediumBar.classList.add('strength-medium');
+                    hintText.textContent = 'Senha média - pode ser melhorada';
+                } else {
+                    weakBar.classList.add('strength-strong');
+                    mediumBar.classList.add('strength-strong');
+                    strongBar.classList.add('strength-strong');
+                    hintText.textContent = 'Senha forte - excelente!';
+                }
+            });
+            
+            // Form validation
+            const form = document.getElementById('registerForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                document.querySelectorAll('.text-red-500').forEach(el => el.classList.add('hidden'));
+                
+                // Validate fields
+                let isValid = true;
+                
+                // Name validation
+                if (document.getElementById('name').value.trim() === '') {
+                    document.getElementById('nameError').classList.remove('hidden');
+                    isValid = false;
+                }
+                
+                // Email validation
+                const email = document.getElementById('email').value;
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('emailError').classList.remove('hidden');
+                    isValid = false;
+                }
+                
+                // Password validation
+                const password = document.getElementById('password').value;
+                if (password.length < 8) {
+                    document.getElementById('passwordError').classList.remove('hidden');
+                    isValid = false;
+                }
+                
+                // Confirm password
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                if (password !== confirmPassword) {
+                    document.getElementById('confirmPasswordError').classList.remove('hidden');
+                    isValid = false;
+                }
+                
+                // Terms checkbox
+                if (!document.getElementById('terms').checked) {
+                    alert('Você deve aceitar os termos de serviço para continuar');
+                    isValid = false;
+                }
+                
+                // If all valid, submit form (simulated)
+                if (isValid) {
+                    alert('Cadastro realizado com sucesso! Redirecionando...');
+                    // Aqui você normalmente faria uma requisição AJAX ou redirecionaria para outra página
+                    // form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
