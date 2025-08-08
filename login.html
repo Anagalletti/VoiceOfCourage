@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voice of Courage Login</title>
+  <style>
+    /* Reset some default styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #3a3a3a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 360px;
+      background-color: #3a3a3a;
+      padding: 20px 20px 40px 20px;
+      box-sizing: border-box;
+      color: white;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Logo area and text */
+    .logo-wrapper {
+      position: relative;
+      width: 200px;
+      height: 140px;
+      margin: 0 auto 20px auto;
+    }
+
+    /* Triangle container */
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 120px solid black;
+      margin: auto;
+      position: relative;
+      background: transparent;
+    }
+
+    /* Arm (muscle) shape inside the triangle */
+    .muscle-arm {
+      position: absolute;
+      top: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 45px;
+      background: black;
+      clip-path: polygon(
+        0% 10%, 20% 0%, 35% 10%, 45% 22%, 52% 40%, 57% 60%, 50% 90%, 
+        68% 65%, 80% 60%, 85% 75%, 100% 80%, 90% 100%, 70% 90%, 60% 75%, 
+        40% 80%, 30% 65%
+      );
+    }
+
+    /* Text along the edges of the triangle using absolute positioning and rotation */
+    .text-top-left {
+      position: absolute;
+      top: 12px;
+      left: 2px;
+      transform: rotate(-45deg);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .text-top-right {
+      position: absolute;
+      top: 12px;
+      right: 2px;
+      transform: rotate(45deg);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .text-bottom-center {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* The text outside the triangle */
+    .logo-text-center {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    /* The LOGIN heading below logo */
+    h2.login-title {
+      margin: 25px 0 20px 0;
+      font-family: serif;
+      font-weight: 700;
+      font-size: 25px;
+      color: black;
+      text-shadow: 1px 1px white;
+      user-select: text;
+    }
+
+    /* Form container */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    label {
+      color: white;
+      font-weight: 900;
+      font-size: 14px;
+      user-select: text;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      height: 30px;
+      border-radius: 10px;
+      border: none;
+      background-color: #898989;
+      padding-left: 10px;
+      font-size: 14px;
+      color: black;
+      outline: none;
+      box-sizing: border-box;
+      user-select: text;
+      font-weight: 600;
+    }
+
+    /* Buttons container for spacing */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+      user-select: none;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      height: 30px;
+      font-weight: 900;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    button#cadastro {
+      background-color: #e2e2e2;
+      color: black;
+      font-style: italic;
+    }
+
+    button#login {
+      background-color: white;
+      color: black;
+      font-style: normal;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Tela de Login Voice of Courage">
+    <section class="logo-wrapper" aria-label="Logotipo Voice of Courage">
+      <div class="triangle" aria-hidden="true"></div>
+      <div class="muscle-arm" aria-hidden="true"></div>
+      <span class="text-top-left">Voice</span>
+      <span class="text-top-right">of</span>
+      <span class="text-bottom-center">Courage</span>
+    </section>
+    <div class="logo-text-center" aria-hidden="true"> </div>
+    <h2 class="login-title">LOGIN</h2>
+
+    <form>
+      <label for="email"><strong>Email:</strong></label>
+      <input type="email" id="email" name="email" autocomplete="email" />
+
+      <label for="password"><strong>Senha:</strong></label>
+      <input type="password" id="password" name="password" autocomplete="current-password" />
+
+      <div class="buttons">
+        <button type="button" id="cadastro" aria-label="Botão Cadastro">Cadastro</button>
+        <button type="submit" id="login" aria-label="Botão Login">Login</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
+
