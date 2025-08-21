@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cadastro</title>
+<style>
+  /* Reset and base */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #b0b1be;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+  .container {
+    background-color: #b0b1be;
+    max-width: 360px;
+    width: 100%;
+    padding: 20px 25px 40px 25px;
+    box-sizing: border-box;
+  }
+  h1 {
+    background-color: #7c88c1;
+    color: black;
+    font-weight: 900;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 15px 15px 0 0;
+    margin: 0 0 25px 0;
+    user-select: none;
+    letter-spacing: 0.06em;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #000;
+    user-select: none;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    background: #d0d0d0;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    background-color: #e0e0e0;
+  }
+  .helper-text {
+    font-weight: normal;
+    font-style: italic;
+    color: #555;
+    font-size: 11px;
+    margin: -14px 0 16px 2px;
+    user-select: none;
+  }
+  button {
+    width: 100%;
+    background-color: #7c88c1;
+    border: none;
+    padding: 10px 0;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  button:hover {
+    background-color: #6a74af;
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Formulário de cadastro">
+    <h1>CADASTRO</h1>
+
+    <form>
+      <label for="usuario">Nome do Usuário</label>
+      <input type="text" id="usuario" name="usuario" autocomplete="off" aria-required="true" />
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" autocomplete="off" aria-required="true" />
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" autocomplete="new-password" aria-describedby="senhaHelp" aria-required="true" />
+      <p id="senhaHelp" class="helper-text">Use pelo menos 10 caracteres, incluindo letras e números</p>
+
+      <label for="confirmSenha">Confirmar senha</label>
+      <input type="password" id="confirmSenha" name="confirmSenha" autocomplete="new-password" aria-required="true" />
+
+      <button type="submit">CRIAR CONTA</button>
+    </form>
+  </div>
+</body>
+</html>
+
